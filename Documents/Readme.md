@@ -60,7 +60,7 @@ Dies sind die benötigten Parameter, welche mitgegeben werden müssen. Sie werde
 #### Script 2:
 Config File<br>
 BackupLimit -> Limit der Backups<br>
-BackupPath  -> Path in dem das Backupfile lieght<br>
+BackupPath  -> Pfad in dem das Backupfile liegt<br>
 Gruppen     -> Array der Gruppen<br>
 TarPrefix   -> BackupFile Prefix<br>
 
