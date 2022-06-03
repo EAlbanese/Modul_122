@@ -7,11 +7,6 @@ Nach dem analysieren des Auftrags, haben wir folgendes Lösungsdesign erstellt, 
 
 #### Script 1
 
-##### Git Repository klonen
-```
-git clone https://github.com/EAlbanese/m122_praxisarbeit_Goudsmit_Albanese/
-```
-
 ##### Script Ordner öffnen
 ```
 cd <pfad>/Scripts
@@ -19,7 +14,7 @@ cd <pfad>/Scripts
 
 ##### Script starten
 ```
-bash Script1.sh
+Script1.sh filename
 ```
 
 #### Script 2
@@ -32,7 +27,7 @@ cd <pfad>/Scripts
 
 ##### Script starten
 ```
-bash Script2.sh
+Script2.sh filename
 ```
 
 ### Ablauf der Automation
