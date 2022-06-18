@@ -7,40 +7,31 @@ BASENAME=`basename $0`    # Set the script name (without path to it)
 TMPDIR=/tmp/$BASENAME.$$    # Set a temporary directory if needed
 ETCDIR=$BINDIR/../etc        # ETCDIR is the config directory
 
-#Jetzt sollte als erstes das/die Konfigfile(s) eingelesen werden:
-# .    # run config file “Scriptname”.env
-userList=()
-groupList=()
+. /path/to/some.config
 
-echo ""
-echo "USERS"
-echo ""
+# What to backup. 
+backup_files="/home/users"
 
-if [ -s ../etc/user.txt ];
-    then 
-    cat ../etc/user.txt |grep -v '^#'|grep -v '^$' | while read user firstname name group ; do
-        userList+=($user)
-        userList+=($firstname)
-        userList+=($name)
-        userList+=($group)
-        echo ${userList[@]}
-        echo "---------------------"    
-    done
-    
-else
-    echo "File is empty"
-fi
+# Where to backup to.
+dest="/home/backup"
 
-echo ""
-echo "GROUP"
-echo ""
+# Create archive filename.
+day=$(date +%A)
+hostname=$(hostname -s)
+archive_file="$hostname-$day.tgz"
 
-if [ -s ../etc/group.txt ];
-    then 
-    cat ../etc/group.txt |grep -v '^#'|grep -v '^$' | while read user ; do
-        echo groupname: $user
-        echo "---------------------"
-    done
-else
-    echo "File is empty"
-fi
+# Print start status message.
+echo "Backing up $backup_files to $dest/$archive_file"
+date
+echo
+
+# Backup the files using tar.
+tar czf $dest/$archive_file $backup_files
+
+# Print end status message.
+echo
+echo "Backup finished"
+date
+
+# Long listing of files in $dest to check file sizes.
+ls -lh $dest

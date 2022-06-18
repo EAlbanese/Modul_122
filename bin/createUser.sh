@@ -16,40 +16,41 @@ YELLOW=$(echo -en '\001\033[00;33m\002')
 GREEN=$(echo -en '\001\033[00;32m\002')
 RED=$(echo -en '\001\033[00;31m\002')
 WHITE=$(echo -en '\001\033[01;37m\002')
+if [ -s ../etc/user.txt ];
+  then 
+  cat ../etc/$FILE_NAME|grep -v '^#'|grep -v '^$'|while read user firstname name group; do
+    if [ -z "$user" ] | [ -z "$firstname" ] | [ -z "$name" ]; then
 
-cat ../etc/$FILE_NAME|grep -v '^#'|grep -v '^$'|while read username groupname full_name
-do
-  USERNAME=$username
-  GROUPNAME=$groupname
-  full_name=$full_name
+      if [ $(getent group $groupname) ]; 
+      then
+        echo -e $groupname "used for" $username "\n---------------------------------"
+      else
+        echo -e ${YELLOW}"WARNING:" ${WHITE}"GROUP" $groupname "DOES NOT EXIST YET\nCreating group" $groupname "..."
+        groupadd $groupname
+        echo -e "group has been sucessfully created\n---------------------------------"
+      fi
 
-  if [ $(getent group $groupname) ]; 
-  then
-    echo -e $groupname "used for" $username "\n---------------------------------"
-  else
-    echo -e ${YELLOW}"WARNING:" ${WHITE}"GROUP" $groupname "DOES NOT EXIST YET\nCreating group" $groupname "..."
-    groupadd $groupname
-    echo -e "group has been sucessfully created\n---------------------------------"
-  fi
+      if id $username &>/dev/null 2<&1; 
+      then
+        echo ${YELLOW}"WARNING:" ${WHITE}"THIS USER ALREADY EXISTS"
+        existing_username=$username
+        echo "---------------------------------"
+      else
+        echo $username "is being created"
+        useradd -m -G $groupname $username -p $DEFAULTPASSWORD
+        passwd -e $username
+        echo -e "user created!\n---------------------------------"
+        existing_username=$username
+      fi
 
-  if id $username &>/dev/null 2<&1; 
-  then
-    echo ${YELLOW}"WARNING:" ${WHITE}"THIS USER ALREADY EXISTS"
-    existing_username=$username
-    echo "---------------------------------"
-  else
-    echo $username "is being created"
-    useradd -m -G $groupname $username -p $DEFAULTPASSWORD
-    passwd -e $username
-    echo -e "user created!\n---------------------------------"
-    existing_username=$username
-  fi
-
-  echo "File structure is beeing created"
-  cd /
-  mkdir -p home/$username/$groupname/whatever/{test,anotherTest}
-  echo -e ${GREEN}"User has been created successfully"${WHITE}"\n----------------------------------"
-
-done
-echo "All users have been created"
-
+      echo "File structure is beeing created"
+      cd /
+      mkdir -p home/$username/$groupname/whatever/{test,anotherTest}
+      echo -e ${GREEN}"User has been created successfully"${WHITE}"\n----------------------------------"
+  else echo "Not NULL";  
+        fi 
+  done
+  echo "All users have been created"
+else
+    echo "File is empty"
+fi
