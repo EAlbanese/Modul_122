@@ -1,0 +1,7 @@
+Log File - Tue Jun 21 12:39:43 CEST 2022
+eliaa belongs to the group1
+Backups are made of the user
+This user already exists
+date +%H:%M : user directory
+/home/users/eliaa/ already exist
+All users have been created
