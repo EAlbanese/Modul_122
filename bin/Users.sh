@@ -45,12 +45,12 @@ if [ -s ../etc/user.txt ];
             fi
 
             echo 'user directory' >> $log
-            DIR="/home/users/$username/"
+            DIR="/home/users/$username/{$groupname,privat}"
             if [ -d "$DIR" ]; then
                 echo $DIR 'already exist' >> $log
             else
                 echo 'user directory is being created' >> $log
-                mkdir -p /home/users/$username/{$groupname,privat}
+                mkdir -p /home/$username/{$groupname,privat}
                 echo "User has been created successfully" >> $log
                 exit 1
             fi
