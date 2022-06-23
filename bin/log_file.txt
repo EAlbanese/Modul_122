@@ -1,9 +1,1 @@
-Log File - Tue Jun 21 12:52:38 CEST 2022
-eliaa belongs to the group1
-Backups are made of the user
-eliaa is being created
-eliaa has been created
-user directory
-user directory is being created
-User has been created successfully
-All users have been created
+Log File - Thu Jun 23 23:54:59 CEST 2022

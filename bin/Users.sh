@@ -7,22 +7,23 @@ BASENAME=`basename $0`    # Set the script name (without path to it)
 TMPDIR=/tmp/$BASENAME.$$    # Set a temporary directory if needed
 ETCDIR=$BINDIR/../etc        # ETCDIR is the config directory
 
-#Jetzt sollte als erstes das/die Konfigfile(s) eingelesen werden:
+#Default Passwort aus userConfig:
 . ../etc/userConfig.conf
 
 log=log_file.txt
 printf "Log File - " > $log
 date >> $log
 
-backupGroups=`cat ../etc/user.txt`
+backupGroups=`cat ../etc/user.env`
  
 
-if [ -s ../etc/user.txt ];
+if [ -s ../etc/user.env ];
     then 
-    cat ../etc/user.txt |grep -v '^#'|grep -v '^$' | while read username firstname name groupname ; do
+    cat ../etc/user.env |grep -v '^#'|grep -v '^$' | while read username firstname name groupname ; do
         if [ -z "$username" ] | [ -z "$firstname" ] | [ -z "$name" ] | [ -z "$groupname" ]; then  
             echo "invalid entry" >> $log
         else
+            echo $groupname
             if [ $(getent group $groupname) ]; 
             then
                 echo $username 'belongs to the' $groupname >> $log
@@ -54,7 +55,6 @@ if [ -s ../etc/user.txt ];
                 echo "User has been created successfully" >> $log
                 exit 1
             fi
-
         fi
     done
     echo 'All users have been created' >> $log
