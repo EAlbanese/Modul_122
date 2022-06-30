@@ -9,16 +9,16 @@ Nach dem analysieren des Auftrags, haben wir folgendes Lösungsdesign erstellt, 
 ### Aufruf der Skripte
 
 #### Script 1
-´´´
+```
 cd &ltPfad&gt <br>
 sudo bash User.sh
-´´´
+```
 
 #### Script 2
-´´´
+```
 cd &ltPfad&gt <br>
 sudo bash backup.sh
-´´´
+```
 
 ### Ablauf der Automation
 
