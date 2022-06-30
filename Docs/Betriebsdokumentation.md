@@ -12,8 +12,6 @@ Das Script macht ein Backup von den notierten Gruppen. In einem separaten File k
 
 ### Installation
 
-TODO: Wie ist das Skript zu installieren. (z.B. apt-get install ... oder tar xvf .... oder ...)
-
 Zuerst muss das Repository geclont werden: <br>
 ```
 git clone https://github.com/EAlbanese/m122_praxisarbeit_Goudsmit_Albanese.git
